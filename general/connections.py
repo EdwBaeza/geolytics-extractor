@@ -1,9 +1,9 @@
 from abc import ABCMeta, abstractmethod
 import requests 
 import json
-from log import logger
-from Mapper import AbstractMapper, DefaultMapper
-from UnstructedDB.scrapper import Scrapper
+from .log import logger
+from .Mapper import AbstractMapper, DefaultMapper
+#from UnstructedDB.scrapper import Scrapper
   
 # Abstract class
 class Connector(object):
@@ -46,9 +46,12 @@ class ConnectorAPI(Connector):
     def consult(self):
         try:
             self.obj_json = Connection.api_connection(self.url)
+            
             self.map_out()
-            #listModel = self.map_out()
-            #return listModel
+            
+            listModel = self.map_out()
+            
+            return listModel
         except Exception as err:
             print(err)
 
@@ -56,7 +59,7 @@ class ConnectorAPI(Connector):
         print('Store method')
 
     def map_out(self):
-        self.mapper.mapout_API(self.obj_json, self.MAP_COMMON_DATA, self.METADATA)
+        return self.mapper.mapout_API(self.obj_json, self.MAP_COMMON_DATA, self.METADATA)
 
 
 # Class with diferent kind methods connection
@@ -105,4 +108,5 @@ class Connection(object):
 
     @staticmethod
     def crawler_connection(url, size_spider, **params):
-        return Scrapper(url, size_spider, **params)
+        #return Scrapper(url, size_spider, **params)
+        pass
