@@ -1,3 +1,5 @@
+# SUMMARY: It is a class that contains constants of the code 
+#     of each state of Mexico
 class MexicoStates(object):
     
     TODOS = '00'
@@ -34,7 +36,10 @@ class MexicoStates(object):
     YUCATAN = '31'
     ZACATECAS = '32'
 
+# SUMMARY: It is a class that contains constants of the categories of places to 
+#     extract data from Inegi
 class Places(object):
+    
     HOTELES = 'hoteles'
     MOTELES = 'moteles'
     BANCOS = 'bancos'
