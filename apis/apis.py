@@ -1,6 +1,9 @@
-from connections import Connection, ConnectorAPI, Connector
-from UnstructedDB.scrapper import Scrapper
-from geomodel import GeoModel
+import sys
+sys.path.append('./../')
+from general.connections import Connection, ConnectorAPI, Connector
+from general.geomodel import GeoModel
+from crawler.scrapper_middleware import ScrapperMiddleWare
+from general.Mapper import DefaultMapper
 
 class GoogleAPI(ConnectorAPI):
     url = ''
@@ -60,7 +63,7 @@ class Crawler(Connector):
         self.url = url
         self.size_spider = size_spider
         self.params = kwords
-        self.crawler = Scrapper(self.url, self.size_spider, **self.params)
+        self.crawler = ScrapperMiddleWare(self.url, self.size_spider, **self.params)
 
 
     def consult(self):
@@ -68,17 +71,5 @@ class Crawler(Connector):
         return self.__data_structure__
 
     def map_out(self):
-
-        node_list = []
-
-        for node  in self.__data_structure__:
-            metadata = node.get('metadata')
-            metadata['title'] = node.get('title')
-            model = GeoModel(node.get('data'), metadata)
-            node_list.append(model)
-
-        return node_list
-
-
-    def store(self):
-        print("Metodo Implementado")
+        return DefaultMapper.mapout_crawler(self.__data_structure__)
+    

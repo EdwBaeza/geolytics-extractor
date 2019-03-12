@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from geolytics_connector.models import GeoModel
+from .geomodel import GeoModel
 
 class AbstractMapper(object):
     __metaclass__ = ABCMeta
@@ -9,7 +9,7 @@ class AbstractMapper(object):
         pass
     
     @abstractmethod
-    def  mapout_DB_Unstructed(self,data_not_mapped):
+    def  mapout_crawler(self,data_not_mapped):
         pass
 
 
@@ -49,5 +49,13 @@ class DefaultMapper(AbstractMapper):
         
         #return json.dumps(objs_list)
 
-    def  mapout_DB_Unstructed(self,data_not_mapped):
-        pass
+    @staticmethod
+    def  mapout_crawler(data_not_mapped):
+        node_list = []
+        for node  in data_not_mapped:
+            metadata = node.get('metadata')
+            metadata['title'] = node.get('title')
+            model = GeoModel(node.get('data'), metadata)
+            node_list.append(model)
+
+        return node_list

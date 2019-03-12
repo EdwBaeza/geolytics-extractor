@@ -1,15 +1,18 @@
 from abc import ABCMeta, abstractmethod
 import requests 
 import json
-from log import logger
-from Mapper import AbstractMapper, DefaultMapper
-from UnstructedDB.scrapper import Scrapper
+import sys
+from .log import logger
+from .Mapper import AbstractMapper, DefaultMapper
+sys.path.append('./../')
+from crawler.scrapper_middleware import ScrapperMiddleWare
   
 # Abstract class
 class Connector(object):
+
     __metaclass__ = ABCMeta
 
-    @abstractmethod
+    @abstractmethod 
     def consult(self):
         print('Consult method')
 
@@ -20,7 +23,6 @@ class Connector(object):
     @abstractmethod
     def map_out(self):
         print('Map out method')
-
 
 class ConnectorAPI(Connector):
 
@@ -62,25 +64,24 @@ class ConnectorAPI(Connector):
 # Class with diferent kind methods connection
 
 class Connection(object):
-
-    # De este modo ya se puede hacer consultas con parámetros, cabeceras y cookies.
-    # Falta que pueda hacer consultas con Autentificación OAuth1.0 y OAuth2.0.
-    # Al igual que autentificaciones básicas.
-    # Tener encuenta que no hay forma de pasar Path Variable, ya se debe definir
-    # en le url.    
+    """ De este modo ya se puede hacer consultas con parámetros, cabeceras y cookies.
+     Falta que pueda hacer consultas con Autentificación OAuth1.0 y OAuth2.0.
+     Al igual que autentificaciones básicas.
+     Tener encuenta que no hay forma de pasar Path Variable, ya se debe definir
+     en le url.    """
+     
     @staticmethod
     def api_connection(url, params=None, headers=None, cookies=None):
 
         message = ''
         response = ''
-
+        
         try:
             response = requests.get(url, params=params, headers=headers, cookies=cookies)
         except Exception as err:
             message = err
             logger.add_log(__name__, message, logger.WARNING)
             raise ValueError(message)
-        
 
         if response.status_code == 200:
             message = '200 OK - API query was successful'
@@ -105,4 +106,4 @@ class Connection(object):
 
     @staticmethod
     def crawler_connection(url, size_spider, **params):
-        return Scrapper(url, size_spider, **params)
+        return ScrapperMiddleWare(url, size_spider, **params)

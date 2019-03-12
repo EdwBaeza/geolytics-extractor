@@ -1,11 +1,10 @@
 import sys
-from apis import GoogleAPI, YelpAPI, InegiAPI, GenericAPI, Crawler
-from log import logger
+from apis.apis import GoogleAPI, YelpAPI, InegiAPI, GenericAPI, Crawler
+from general.log import logger
 
-# Class to implement a factory pattern
 
 class ConnectorFactory(object):
-
+    """ Class to implement a factory pattern """
     GOOGLE_API = 0
     YELP_API = 1
     INEGI_API = 2
@@ -19,7 +18,7 @@ class ConnectorFactory(object):
         elif ConnectorFactory.YELP_API == source:
             return YelpAPI()
         elif ConnectorFactory.INEGI_API == source:
-            return InegiAPI()
+            return Crawler()
         elif ConnectorFactory.GENERIC_API == source:
             return InegiAPI()
         elif ConnectorFactory.CRAWLER == source:

@@ -1,8 +1,8 @@
+""" utilities """
 from _datetime import datetime
 
-
 class GeoModel(object):
-
+    """ Model for mapper data"""
     def __init__(self, data, metadata, latitude=0.0, longitude=0.0):
         self.latitude = latitude
         self.longitude = longitude
@@ -11,6 +11,4 @@ class GeoModel(object):
         self.metadata = metadata
 
     def __str__(self):
-        return ('Data: {} Metadata:{} \n'.format(self.data, self.metadata))
-
-
+        return 'Data: {} Metadata:{} \n'.format(self.data, self.metadata)
