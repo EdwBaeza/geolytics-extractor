@@ -14,8 +14,6 @@ class AbstractMapper(object):
 
 
 class DefaultMapper(AbstractMapper):
-    
-
     def mapout_API(self, obj_json, common_data, metadata):
         copy_metadata = {}
         objs_list = []

@@ -3,7 +3,7 @@ from extractor import ConnectorFactory
 
 def run():
     url = "https://www.yucatan.com.mx/"
-    size_spider = (10, 10)
+    size_spider = (2, 2)
     attr_data = {"class": "entry-content","itemprop": "articleBody"}
     attr_title = {"class": "g1-mega","itemprop": "headline"}
     attr_date = {"class": "entry-date","itemprop": "datePublished"}
@@ -25,10 +25,10 @@ def run():
     node_list = crawler.map_out()
     print("COUNT DATA EXTRACTED", len(data))
     print("COUNT NODE LIST EXTRACTED", len(node_list))
-    for item in node_list:
-        print(item)
-        inp = input("ENTER TO NEXT")
-        if inp == 'q':
-            break
+    # for item in node_list:
+    #     print(item)
+    #     inp = input("ENTER TO NEXT")
+    #     if inp == 'q':
+    #         break
 
 run()

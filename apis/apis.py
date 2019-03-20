@@ -2,9 +2,9 @@ import sys
 sys.path.append('./../')
 from general.connections import Connection, ConnectorAPI, Connector
 from general.geomodel import GeoModel
-from crawler.scrapper_middleware import ScrapperMiddleWare
+from crawler.spider_middleware import SpiderMiddleWare
 from general.Mapper import DefaultMapper
-
+from test import Test
 class GoogleAPI(ConnectorAPI):
     url = ''
 
@@ -63,13 +63,18 @@ class Crawler(Connector):
         self.url = url
         self.size_spider = size_spider
         self.params = kwords
-        self.crawler = ScrapperMiddleWare(self.url, self.size_spider, **self.params)
+        self.crawler = SpiderMiddleWare(self.url, self.size_spider, **self.params)
 
 
     def consult(self):
         self.__data_structure__ = self.crawler.run_spider()
-        return self.__data_structure__
+
+        Test(self.__data_structure__[1][0], self.url).run()
+
+        return self.__data_structure__[0]
+    
+    
 
     def map_out(self):
-        return DefaultMapper.mapout_crawler(self.__data_structure__)
+        return DefaultMapper.mapout_crawler(self.__data_structure__[0])
     

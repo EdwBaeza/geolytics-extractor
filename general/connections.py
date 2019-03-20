@@ -5,7 +5,7 @@ import sys
 from .log import logger
 from .Mapper import AbstractMapper, DefaultMapper
 sys.path.append('./../')
-from crawler.scrapper_middleware import ScrapperMiddleWare
+from crawler.spider_middleware import SpiderMiddleWare
   
 # Abstract class
 class Connector(object):
