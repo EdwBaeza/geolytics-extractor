@@ -123,7 +123,7 @@ class GenericSpider(scrapy.Spider):
         elif self.parents_level == []:
             return False
         else: 
-            print("                 ",self.parents_level)
+            #print("                 ",self.parents_level)
             for link_parent in self.parents_level:
                 children_temp = self.tree_data[0].get(link_parent)
                 current_children.extend(children_temp)

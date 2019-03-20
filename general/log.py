@@ -1,13 +1,19 @@
 import logging
 
+# SUMMARY: Logger Class 
 class logger(object):
 
+    # Constants for the logging level
     DEBUG = 10
     INFO = 20
     WARNING = 30
     ERROR = 40
     CRITICAL = 50
 
+    # SUMMARY: static method that allows you to add a log
+    # PARAM resource: resource where the log is registered
+    # PARAM message: Message for the log
+    # PARAM logger_type: Type of log that you want to register
     @staticmethod
     def add_log(resource, message, logger_type):
         
@@ -38,7 +44,7 @@ class logger(object):
         elif logger.CRITICAL == logger_type:
             log.critical(message)
 
-    # example of use it:
+    # Example of use it:
     """
-    logger.add_log(__name__,'Hola', logger.INFO)
+    logger.add_log(__name__,'Hi world', logger.INFO)
     """
