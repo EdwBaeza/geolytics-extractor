@@ -4,12 +4,11 @@ from general.connections import Connection, ConnectorAPI, Connector
 from general.geomodel import GeoModel
 from crawler.spider_middleware import SpiderMiddleWare
 from general.Mapper import DefaultMapper
-<<<<<<< HEAD
 from test import Test
-=======
+from crawler.tree import Tree
 
 # SUMMARY: Connector class to Google Maps API
->>>>>>> ac98c28115b6d5605219d00f48557a21b8930621
+
 class GoogleAPI(ConnectorAPI):
 
     # SUMMARY: Url is a property that overwrites the one it is inheriting.
@@ -91,24 +90,67 @@ class GenericAPI(ConnectorAPI):
 
 
 class Crawler(Connector):
+    """ This is class use the user """
 
 
-    def set_params(self, url, size_spider, **kwords):
+    def set_params(self, url, size_spider, **kwords): 
+        """ Receive:
+            string: url for first extraction "www.example.com/" 
+            tuple: spider_size (height, width)
+            **kowrds: key-value example title={dict with format crawler extraction}
+            Description: asignation of values
+            Return: None """   
         self.url = url
         self.size_spider = size_spider
         self.params = kwords
-        self.crawler = SpiderMiddleWare(self.url, self.size_spider, **self.params)
+        self.crawler = Connection.crawler_connection(self.url, self.size_spider, **self.params)
 
 
     def consult(self):
+        """ Receive:None
+            Description: get data of spider
+            Return: list of the dict, each dict is one item(note) """  
         self.__data_structure__ = self.crawler.run_spider()
-
-        Test(self.__data_structure__[1][0], self.url).run()
-
         return self.__data_structure__[0]
-    
-    
 
     def map_out(self):
+        """ Receive:None
+            Description: maps dictionary data in objects GeoModel
+            Return: list of the objects GeoModel"""  
         return DefaultMapper.mapout_crawler(self.__data_structure__[0])
+
     
+    def get_tree(self):
+        """ Receive:None
+            Description: return the tree and list of the links
+                list[0]  == tree, list[1] == list of the links 
+            Return: list of the size two""" 
+        tree = Tree(self.__data_structure__[1], self.__data_structure__[2], self.map_out())
+
+        return tree, self.__data_structure__[2]
+
+    def filter_data(self, text):
+        filter_dict = []
+        text_upper = text.upper()
+
+        for item in self.__data_structure__[0]:
+            if(not item["data"].upper().find(text_upper) == -1):
+                filter_dict.append(item)
+        return DefaultMapper.mapout_crawler(filter_dict)
+
+    def filter(self, **kwords):
+        data = kwords.get('data')
+        metadata_name = kwords.get('metadata_name')
+        metadata_value = kwords.get('metadata_value')
+        filter_dict = []
+
+        if(not data is None):
+            data_upper = data.upper()
+            for item in self.__data_structure__[0]:
+                if(not item["data"].upper().find(data_upper)== -1):
+                    filter_dict.append(item)
+        if(not metadata_name is None and not metadata_value is None):
+            pass   
+            
+        
+        return DefaultMapper.mapout_crawler(filter_dict)

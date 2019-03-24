@@ -71,6 +71,11 @@ class CrawlerDownloaderMiddleware(object):
     def process_request(self, request, spider):
         # Called for each request that goes through the downloader
         # middleware.
+        print(""" 
+        
+            Mensaje de edwin {}
+        
+        """.format(spider))
 
         # Must either:
         # - return None: continue processing this request
@@ -87,6 +92,7 @@ class CrawlerDownloaderMiddleware(object):
         # - return a Response object
         # - return a Request object
         # - or raise IgnoreRequest
+
         return response
 
     def process_exception(self, request, exception, spider):

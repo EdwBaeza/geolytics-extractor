@@ -14,7 +14,9 @@ BOT_NAME = 'crawler'
 SPIDER_MODULES = ['crawler.spiders']
 NEWSPIDER_MODULE = 'crawler.spiders'
 
-
+DOWNLOADER_MIDDLEWARES = {
+    'crawler.middlewares.CrawlerDownloaderMiddleware': 543,
+}
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'crawler (+http://www.yourdomain.com)'
 

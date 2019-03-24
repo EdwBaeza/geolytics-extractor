@@ -47,3 +47,16 @@ class Test():
         
         print("Level ", level)
 
+
+
+def get_max_links(self):
+    ac = 1
+    mul = 1
+    for i in range(self[0]):
+        pow = i + 1
+        mul = self[1]**pow
+        ac+= mul
+    return ac
+
+
+print(get_max_links([3,2]))

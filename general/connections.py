@@ -135,4 +135,4 @@ class Connection(object):
 
     @staticmethod
     def crawler_connection(url, size_spider, **params):
-        return ScrapperMiddleWare(url, size_spider, **params)
+        return SpiderMiddleWare(url, size_spider, **params)

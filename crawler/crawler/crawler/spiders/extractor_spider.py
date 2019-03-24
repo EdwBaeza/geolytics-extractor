@@ -2,7 +2,8 @@ import scrapy
 import copy
 import re, sys
 from scrapy.selector import Selector
-
+sys.path.append('./../../../../')
+from general.log import logger
 
 
 class ExtractorSpider(scrapy.Spider):
@@ -11,9 +12,8 @@ class ExtractorSpider(scrapy.Spider):
     def __init__(self, urls, html_structure, structure_data_response):
         """ constructor 
             Receive:
-            string: url for first extraction "www.example.com/" 
-            tuple: spider_size (height, width)
-            dictionary: html_structure must have contain the list of scrapy strings for every field
+            string: urls found in the generic_spider 
+            dictionary: html_structure must have contain the list of scrapy strings for each field
             list: structure_data_response is a output parameter of response extraction
             Description: asignation of values
             Return: None """        
@@ -23,38 +23,19 @@ class ExtractorSpider(scrapy.Spider):
         self.metadata = copy.copy(self.html_structure)
         del (self.metadata["title"])
         del (self.metadata["data"])
-        print(""" 
-        
-        
-        
-            Constructor Extractor
-
-
-
-        
-        
-        """)
 
     def start_requests(self):
-        print("""
-
-
-
-                AQUIIIIIIIIIII
-
-            Links  generic spider extrctor
-            {}
-        
-        
-
-
-
-         """.format(len(self.urls)))
+        """ *Receive:
+            *Description: request for each url found in the generic_spider
+            *Return: None"""
         for url in self.urls:
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        """ Extractor """
+        """ *Receive:
+            Response: response is the reponse of request for each url (html for example)" 
+            *Description: call to extract_text function sending the structure each field
+            *Return: None """     
         
         title = self.extract_text(response, self.html_structure["title"])
         data = self.extract_text(response, self.html_structure["data"])
@@ -67,33 +48,36 @@ class ExtractorSpider(scrapy.Spider):
             item_metadata_content = self.extract_text(response, self.metadata[item_metadata])
             dict_metadata[item_metadata] = item_metadata_content
 
-        page = dict(title=title, data=data, metadata=dict_metadata)
+        page = dict(title=title, data=data, metadata=dict_metadata, url=response.url)
         self.structure_data_response.append(page)
-       # self.log('URL: {} Finish'.format(response.url))
 
     def extract_text(self, response, scrapy_strings):
-        """ extract pure text of html """
+        """ *Receive
+            Response: response is the reponse of request for each url (html for example)"
+            scrapy_strings: 
+            *Description: extract text pure of html (use scrapy selectors)
+                clean space (use regex)
+                clean \n    (use regex)
+                clean html  (use regex)
+                clean scripts (use regex)
+            *Return: None """     
+        
         if len(scrapy_strings) == 1:
-            # content =  response.xpath('//div[contains(@id,"content-body")]').extract()
             data = response.xpath(scrapy_strings[0]).extract()
         elif len(scrapy_strings) == 2:
-            # data = response.css("div.entry-content").xpath("//div[contains(@itemprop,'articleBody')]").extract()
             data = response.css(scrapy_strings[0]).xpath(scrapy_strings[1]).extract()
         elif len(scrapy_strings) == 3:
-            """
-            data = response.css("a span")
-            .xpath("//span[contains(@itemprop,'articleSection')]").extract_first()
-            data_ultimate = Selector(text=data).xpath("//span/text()").extract()
-            """
             predata = response.css(scrapy_strings[0]).xpath(scrapy_strings[1]).extract_first()
             data = Selector(text=predata).xpath(scrapy_strings[2]).extract()
         else:
             print(scrapy_strings, ' <- ss    len->', len(scrapy_strings))
+            logger.add_log(__name__, "Error in size scrapy_strings", logger.CRITICAL)
             raise ValueError("Error in size scrapy_strings")
 
-        if len(data) == 0:
-            print(""" DATA NOT FOUND """)
-            return ""
+        if not data:
+            print(""" DATA NOT FOUND IN URL: """, response.url)
+            logger.add_log(__name__, "DATA NOT FOUND IN URL: {}".format(response.url), logger.INFO)
+            return ''
 
         regex_string_html = r"<.*?>"
         regex_string_space = r"\s+"

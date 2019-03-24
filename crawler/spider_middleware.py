@@ -2,9 +2,12 @@ from twisted.internet import reactor, defer
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
 from .crawler.crawler.spiders.generic_spider import GenericSpider
-from .crawler.crawler.spiders.generic_spider_extractor import ExtractorSpider
+from .crawler.crawler.spiders.extractor_spider import ExtractorSpider
 from scrapy.crawler import CrawlerProcess
-
+from scrapy.utils.project import get_project_settings
+import sys
+sys.path.append('./../')
+from general.log import logger
 class SpiderMiddleWare(object):
 
     __FIND_BY_ID__ = 0
@@ -122,42 +125,30 @@ class SpiderMiddleWare(object):
                 string_scrapy_second,
                 string_scrapy_third)
 
-
-
-
     @defer.inlineCallbacks
-    def crawl(self):
-
+    def run_crawl(self):
+        """ 
+        *Receive: None
+        *Description: fucntion for run spider independently of scrapy shell but sequentially. 
+        *Return None"""
         configure_logging()
-        runner = CrawlerRunner()
-
+        runner = CrawlerRunner(get_project_settings())
         yield runner.crawl(GenericSpider, self.root_url, self.spider_size, self.tree_data)
         yield runner.crawl(ExtractorSpider, self.tree_data[1], self.__html_structure__, self.structure_data_return)
         reactor.stop()
 
     def run_spider(self):
-        """ Receive: None
-        Description: script for run spider independently of scrapy shell. 
-        Return: """
-        self.crawl()
-        reactor.run()
-        print("Run spider (SpiderMiddleWare)")
-        print("""
-            Links
-            {}
-         """.format(len(self.tree_data[1])))
-        print("""
-            Links Set
-            {}
-        
-        
-         """.format(len(set(self.tree_data[1]))))
+        """ 
+        *Receive: None
+        *Description: fucntion for run spider independently of scrapy shell. 
+        *Return
+        self.structure_data_return:list of dict with each dict is a item(note), 
+        self.tree_data[0]:the tree of data represent in dict, 
+        self.tree_data[1]: list of the every links in the tree"""
+        try:
+            self.run_crawl()
+            reactor.run()
+        except Exception as exp:
+            logger.add_log(__name__, "Error run crawler {}".format(exp), logger.CRITICAL)
 
-        # for item in tree_data[0].keys():
-        #     print("Url ",item)
-        #     print("Cantidad Hijos",len(tree_data[0][item]))
-        #     print(" Hijos: ", tree_data[0][item])
-        #     a = input("seguimos")
-        #     if a=='q':
-        #         break
-        return self.structure_data_return,self.tree_data
+        return self.structure_data_return, self.tree_data[0], self.tree_data[1]

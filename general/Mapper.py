@@ -24,8 +24,7 @@ class AbstractMapper(object):
 # SUMMARY: This is a default mapper that implements the methods 
 #     from AbstractMapper
 class DefaultMapper(AbstractMapper):
-<<<<<<< HEAD
-=======
+
     
     # SUMMARY: Method that restructures the json object consulted, and 
     #     returns it in the form of a list of the GeoModel type
@@ -36,7 +35,7 @@ class DefaultMapper(AbstractMapper):
     #     from the json consulted.
     # RETURN: A json of GeoModel with all the restructured information 
     #     of obj_json
->>>>>>> ac98c28115b6d5605219d00f48557a21b8930621
+
     def mapout_API(self, obj_json, common_data, metadata):
         
         copy_metadata = {}
@@ -79,10 +78,12 @@ class DefaultMapper(AbstractMapper):
     @staticmethod
     def  mapout_crawler(data_not_mapped):
         node_list = []
+        dict_node = {}
         for node  in data_not_mapped:
+            
             metadata = node.get('metadata')
             metadata['title'] = node.get('title')
-            model = GeoModel(node.get('data'), metadata)
-            node_list.append(model)
+            dict_node[node["url"]] = GeoModel(node.get('data'), metadata)
+            node_list.append(dict_node)
 
-        return node_list
+        return dict_node
