@@ -23,8 +23,8 @@ class ConnectorFactory(object):
         elif ConnectorFactory.YELP_API == source:
             return YelpAPI()
         elif ConnectorFactory.INEGI_API == source:
-            return Crawler()
-        elif ConnectorFactory.GENERIC_API == source:
             return InegiAPI()
+        elif ConnectorFactory.GENERIC_API == source:
+            return GenericAPI()
         elif ConnectorFactory.CRAWLER == source:
             return Crawler()

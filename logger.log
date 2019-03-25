@@ -7379,3 +7379,4 @@
 2019-03-24 16:30:28,896 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/rusiagate
 2019-03-24 16:30:28,896 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/rusiagate
 2019-03-24 16:30:28,896 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/rusiagate
+2019-03-25 00:59:07,589 - general.connections - INFO - 200 OK - API query was successful
