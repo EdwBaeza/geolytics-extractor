@@ -31,6 +31,7 @@ class SpiderMiddleWare(object):
         self.__html_structure__ = dict()
         self.structure_data_return = []
         self.tree_data = [{}, None]
+        #self.__find_protocol__()
 
         try:
             self.__data_validation__(kwords["title"], "title")
@@ -40,11 +41,23 @@ class SpiderMiddleWare(object):
             self.__data_validation__(kwords["data"], "data")
         except KeyError:
             raise ValueError("'data' not found")
-        metadata = kwords.get("metadata")
 
+        metadata = kwords.get("metadata")
         if metadata is not None:
             self.__metadata_validation__(metadata)
 
+    # def __find_protocol__(self):
+    #     url = self.root_url
+    #     protocol = "https//"
+
+    #     if not self.root_url.count("https") == -1:
+    #         url = self.root_url.replace(protocol,"")
+    #     elif not self.root_url.count("http") == -1:
+    #         protocol = "http//"
+    #         url = self.root_url.replace(protocol,"") 
+    #     self.root_url = [protocol,url,]
+        
+        
     def __data_validation__(self, param, name):
         """ Receive
         dictionary: param must have tag and id or attr(it's dictionary)
@@ -150,5 +163,4 @@ class SpiderMiddleWare(object):
             reactor.run()
         except Exception as exp:
             logger.add_log(__name__, "Error run crawler {}".format(exp), logger.CRITICAL)
-
         return self.structure_data_return, self.tree_data[0], self.tree_data[1]

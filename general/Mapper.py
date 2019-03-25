@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from .geomodel import GeoModel
 import json
+import copy
 
 # SUMMARY: Class abtracts with methods to change the structure of json.
 #     You can create your own definitions from it.
@@ -80,8 +81,7 @@ class DefaultMapper(AbstractMapper):
         node_list = []
         dict_node = {}
         for node  in data_not_mapped:
-            
-            metadata = node.get('metadata')
+            metadata = copy.copy(node.get('metadata'))
             metadata['title'] = node.get('title')
             dict_node[node["url"]] = GeoModel(node.get('data'), metadata)
             node_list.append(dict_node)

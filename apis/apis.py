@@ -6,6 +6,7 @@ from crawler.spider_middleware import SpiderMiddleWare
 from general.Mapper import DefaultMapper
 from test import Test
 from crawler.tree import Tree
+import copy
 
 # SUMMARY: Connector class to Google Maps API
 
@@ -110,14 +111,14 @@ class Crawler(Connector):
         """ Receive:None
             Description: get data of spider
             Return: list of the dict, each dict is one item(note) """  
-        self.__data_structure__ = self.crawler.run_spider()
+        self.__data_structure__ = self.crawler.run_spider()        
         return self.__data_structure__[0]
 
     def map_out(self):
         """ Receive:None
             Description: maps dictionary data in objects GeoModel
             Return: list of the objects GeoModel"""  
-        return DefaultMapper.mapout_crawler(self.__data_structure__[0])
+        return DefaultMapper.mapout_crawler(copy.copy(self.__data_structure__[0]))
 
     
     def get_tree(self):
@@ -130,27 +131,14 @@ class Crawler(Connector):
         return tree, self.__data_structure__[2]
 
     def filter_data(self, text):
+        """ Receive:
+            string: text is the string
+            Description: find into the data for each item in the tree
+            return: list of the dict key is the url and value is one object the geomodel""" 
         filter_dict = []
         text_upper = text.upper()
-
+        
         for item in self.__data_structure__[0]:
             if(not item["data"].upper().find(text_upper) == -1):
-                filter_dict.append(item)
-        return DefaultMapper.mapout_crawler(filter_dict)
-
-    def filter(self, **kwords):
-        data = kwords.get('data')
-        metadata_name = kwords.get('metadata_name')
-        metadata_value = kwords.get('metadata_value')
-        filter_dict = []
-
-        if(not data is None):
-            data_upper = data.upper()
-            for item in self.__data_structure__[0]:
-                if(not item["data"].upper().find(data_upper)== -1):
-                    filter_dict.append(item)
-        if(not metadata_name is None and not metadata_value is None):
-            pass   
-            
-        
+                filter_dict.append(copy.copy(item))
         return DefaultMapper.mapout_crawler(filter_dict)

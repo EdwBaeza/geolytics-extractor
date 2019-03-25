@@ -19,7 +19,6 @@ class GenericSpider(scrapy.Spider):
         self.spider_size = spider_size
         self.tree_data = tree_data
         self.global_links = [self.url]
-        self.base_url = ""
         self.parents_level = "Seed"
         self.level = 0
         self.max_links = self.get_max_links()
@@ -74,10 +73,20 @@ class GenericSpider(scrapy.Spider):
         links_current_node.append(self.url)
 
         while self.level < max_level:
-  
+
+            print(""" 
+            
+            links
+            """)
+
+            print(links_current_node)
+            print(""" 
+            
+            
+            """)
             count_bad_request += 1
             for current_link in links_current_node:
-                        yield scrapy.Request(url=current_link, callback=self.parse)
+                    yield scrapy.Request(url=current_link, callback=self.parse)
 
             if self.next_level():
                 self.level += 1
@@ -93,7 +102,7 @@ class GenericSpider(scrapy.Spider):
                     10,000 Iteraciones
                         """)
                 break
-        self.tree_data[1] = self.global_links
+        self.tree_data[1] = self.global_links[:self.max_links:]
 
     def parse(self, response):
         """ *Receive:
@@ -117,7 +126,10 @@ class GenericSpider(scrapy.Spider):
             Response: response is the reponse of request for each url (html for example)" 
             *Description: extract links of html (use scrapy selectors)
             *Return: list of links no repeated """
-        links = response.xpath('//a[contains(@href,"{}")]'.format(self.url)).css('a::attr(href)').extract()
+        links_without_protocol = response.css('a::attr(href)').re("^(\/.+)$")
+        links_with_protocol = response.xpath('//a[contains(@href,"{}")]'.format(self.url)).css('a::attr(href)').extract()
+        links = ["{}{}".format(self.url, link) for link in links_without_protocol]
+        links.extend(links_with_protocol)
         links = list(set(links))
         return links
 
@@ -126,9 +138,14 @@ class GenericSpider(scrapy.Spider):
             list: links_current_node is a list of links, this list represent children of current node
             *Description: delete repeated links (use list comprehension and slicing)
             *Return: list  of links no repeated """
-        clean_links_current_node = [link for link in links_current_node if links_current_node.count(link) == 1]
-        clean_global_list = [link for link in clean_links_current_node if self.global_links.count(link) == 0]
+        clean_links_current_node = [link for link in links_current_node if links_current_node.count(link) == 1 and not link == '']
+        clean_global_list = [link for link in clean_links_current_node if self.global_links.count(link) == 0 and not link == '']
+
         max_spider =  clean_global_list[:self.spider_size[1]:]
+        # protocol_none =  [link for link in links_current_node if link.count(self.url[0])== -1 and not link == '']
+        # protocol_ok = [link for link in links_current_node if not link in protocol_none]
+        # protocol_none_to_ok = ["{}{}".format(self.url[0],link) for link in links_current_node if not link == '']
+       
         return max_spider
  
     def next_level(self):
@@ -162,7 +179,6 @@ class GenericSpider(scrapy.Spider):
             *Return: int number of the max children in the tree """
         mul = 1
         ac = 1
-
         for i in range(self.spider_size[0]):
             pow = i + 1
             mul = self.spider_size[1] ** pow

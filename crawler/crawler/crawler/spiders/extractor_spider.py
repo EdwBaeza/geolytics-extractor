@@ -42,8 +42,10 @@ class ExtractorSpider(scrapy.Spider):
         dict_metadata = dict()
         
         if title == '' or data == '':
+            logger.add_log(__name__, "DATA NOT FOUND IN URL: {}".format(response.url), logger.INFO)
             return
-
+        print("----- METADATA-----")
+        print(self.metadata)
         for item_metadata in self.metadata.keys():
             item_metadata_content = self.extract_text(response, self.metadata[item_metadata])
             dict_metadata[item_metadata] = item_metadata_content
@@ -61,22 +63,21 @@ class ExtractorSpider(scrapy.Spider):
                 clean html  (use regex)
                 clean scripts (use regex)
             *Return: None """     
-        
+        data = ['']
         if len(scrapy_strings) == 1:
             data = response.xpath(scrapy_strings[0]).extract()
         elif len(scrapy_strings) == 2:
             data = response.css(scrapy_strings[0]).xpath(scrapy_strings[1]).extract()
         elif len(scrapy_strings) == 3:
-            predata = response.css(scrapy_strings[0]).xpath(scrapy_strings[1]).extract_first()
-            data = Selector(text=predata).xpath(scrapy_strings[2]).extract()
+            predata = response.css(scrapy_strings[0]).xpath(scrapy_strings[1]).get()
+            data[0] = predata
+            #data = Selector(text=predata).xpath(scrapy_strings[2]).extract()
         else:
             print(scrapy_strings, ' <- ss    len->', len(scrapy_strings))
             logger.add_log(__name__, "Error in size scrapy_strings", logger.CRITICAL)
             raise ValueError("Error in size scrapy_strings")
 
-        if not data:
-            print(""" DATA NOT FOUND IN URL: """, response.url)
-            logger.add_log(__name__, "DATA NOT FOUND IN URL: {}".format(response.url), logger.INFO)
+        if not data or (data and data[0] is None):
             return ''
 
         regex_string_html = r"<.*?>"
