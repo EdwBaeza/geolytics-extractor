@@ -29,13 +29,13 @@ class Connector(object):
 #     and will be used to query and map out data from API's
 class ConnectorAPI(Connector):
 
-    # SUMMARY: 
+    # SUMMARY: Dictionary for params to consult API
     params = {}
 
-    # SUMMARY: 
+    # SUMMARY: Hearders to consult API
     headers = {}
 
-    # SUMMARY: 
+    # SUMMARY: Cookies to consult API
     cookies = {}
 
     # SUMMARY: This is an dictionary and its function is to establish the 
