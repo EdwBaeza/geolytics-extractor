@@ -82,8 +82,7 @@ class DefaultMapper(AbstractMapper):
         dict_node = {}
         for node  in data_not_mapped:
             metadata = copy.copy(node.get('metadata'))
-            metadata['title'] = node.get('title')
-            dict_node[node["url"]] = GeoModel(node.get('data'), metadata)
+            dict_node[metadata["url"]] = GeoModel(node.get('data'), metadata)
             node_list.append(dict_node)
 
         return dict_node

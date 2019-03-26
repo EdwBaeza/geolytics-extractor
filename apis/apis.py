@@ -4,7 +4,6 @@ from general.connections import Connection, ConnectorAPI, Connector
 from general.geomodel import GeoModel
 from crawler.spider_middleware import SpiderMiddleWare
 from general.Mapper import DefaultMapper
-from test import Test
 from crawler.tree import Tree
 import copy
 

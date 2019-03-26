@@ -81,7 +81,7 @@ def run3():
     data = {"tag":"div", "id": "content-body"}
     metadata = ({"name": "author", "tag": "span", "attr": attr_author})
 
-    crawler.set_params(url, size_spider, title=title, data=data, metadata=metadata)
+    crawler.set_params(url, size_spider,data=data, metadata=metadata)
     data = crawler.consult()
 
     data_tree = crawler.map_out()

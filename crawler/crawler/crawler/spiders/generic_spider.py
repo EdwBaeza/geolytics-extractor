@@ -73,17 +73,6 @@ class GenericSpider(scrapy.Spider):
         links_current_node.append(self.url)
 
         while self.level < max_level:
-
-            print(""" 
-            
-            links
-            """)
-
-            print(links_current_node)
-            print(""" 
-            
-            
-            """)
             count_bad_request += 1
             for current_link in links_current_node:
                     yield scrapy.Request(url=current_link, callback=self.parse)
@@ -140,12 +129,8 @@ class GenericSpider(scrapy.Spider):
             *Return: list  of links no repeated """
         clean_links_current_node = [link for link in links_current_node if links_current_node.count(link) == 1 and not link == '']
         clean_global_list = [link for link in clean_links_current_node if self.global_links.count(link) == 0 and not link == '']
-
         max_spider =  clean_global_list[:self.spider_size[1]:]
-        # protocol_none =  [link for link in links_current_node if link.count(self.url[0])== -1 and not link == '']
-        # protocol_ok = [link for link in links_current_node if not link in protocol_none]
-        # protocol_none_to_ok = ["{}{}".format(self.url[0],link) for link in links_current_node if not link == '']
-       
+
         return max_spider
  
     def next_level(self):
@@ -163,7 +148,6 @@ class GenericSpider(scrapy.Spider):
         elif self.parents_level == []:
             return False
         else: 
-            #print("                 ",self.parents_level)
             for link_parent in self.parents_level:
                 children_temp = self.tree_data[0].get(link_parent)
                 current_children.extend(children_temp)

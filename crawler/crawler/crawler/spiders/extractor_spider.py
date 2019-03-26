@@ -44,13 +44,13 @@ class ExtractorSpider(scrapy.Spider):
         if title == '' or data == '':
             logger.add_log(__name__, "DATA NOT FOUND IN URL: {}".format(response.url), logger.INFO)
             return
-        print("----- METADATA-----")
-        print(self.metadata)
+
         for item_metadata in self.metadata.keys():
             item_metadata_content = self.extract_text(response, self.metadata[item_metadata])
             dict_metadata[item_metadata] = item_metadata_content
-
-        page = dict(title=title, data=data, metadata=dict_metadata, url=response.url)
+        dict_metadata["title"] = title
+        dict_metadata["url"] = response.url
+        page = dict(data=data, metadata=dict_metadata)
         self.structure_data_response.append(page)
 
     def extract_text(self, response, scrapy_strings):
