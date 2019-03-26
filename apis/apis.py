@@ -7,8 +7,43 @@ from general.Mapper import DefaultMapper
 from test import Test
 from crawler.tree import Tree
 
-# SUMMARY: Connector class to Google Maps API
 
+class YelpAPI(ConnectorAPI):
+
+    url = ''
+
+    auth_type = 'bearer'
+
+    api_key = '_QY8uFSymWbKPH7JiKGTHKmZtjGX2BnHcKlDGUpBIez-oZl7c6fxvxlRt_TqgpGHg993S5_2jy6tEzu43gjSggCFJrSAG49JLQvXuTlqu-A8r5FbPCadqEaqs5qZXHYx'
+
+    MAP_COMMON_DATA = {
+        'longitud' : 'longitude',
+        'latitud' : 'latitude',
+        'data' : 'id'
+    } 
+
+    METADATA = {
+        'url' : '',
+        'rating' : '',
+        'phone' : '',
+        'display_phone' : '', 
+        'review_count' : '',
+        'alias' : '',
+        'name' : ''
+    }
+
+    def __init__(self,abstract_mapper = None):
+        super(YelpAPI, self).__init__(self.url, abstract_mapper)
+
+    def set_filter(self, term, latitude, longitude):
+    
+        self.url = 'https://api.yelp.com/v3/businesses/search?term={0}&latitude={1}&longitude={2}'.format(term, latitude, longitude)
+
+    def set_auth(self):
+        self.headers = {'Authorization' :'{0} {1}'.format(self.auth_type, self.api_key)}
+
+
+# SUMMARY: Connector class to Google Maps API
 class GoogleAPI(ConnectorAPI):
 
     # SUMMARY: Url is a property that overwrites the one it is inheriting.
@@ -17,16 +52,6 @@ class GoogleAPI(ConnectorAPI):
     # SUMMARY: Initializer or constructor of the class
     def __init__(self, abstract_mapper=None):
         super(GoogleAPI, self).__init__(self.url, abstract_mapper)
-
-# SUMMARY: Connector class to Yelp API
-class YelpAPI(ConnectorAPI):
-
-    # SUMMARY: Url is a property that overwrites the one it is inheriting.
-    url = ''
-
-    # SUMMARY: Initializer or constructor of the class
-    def __init__(self, abstract_mapper=None):
-        super(YelpAPI, self).__init__(self.url, abstract_mapper)
 
 # SUMMARY: Connector class to DENUE API by INEGI
 class InegiAPI(ConnectorAPI):
@@ -77,7 +102,7 @@ class InegiAPI(ConnectorAPI):
 class GenericAPI(ConnectorAPI):
 
     # SUMMARY: Url is a property that overwrites the one it is inheriting.
-    def __init__(self, url, abstract_mapper=None):
+    def __init__(self, abstract_mapper=None):
         super(GenericAPI, self).__init__(self.url, abstract_mapper)
 
     # SUMMARY: Unproven functionality

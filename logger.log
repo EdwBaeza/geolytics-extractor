@@ -7380,3 +7380,44 @@
 2019-03-24 16:30:28,896 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/rusiagate
 2019-03-24 16:30:28,896 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/rusiagate
 2019-03-25 00:59:07,589 - general.connections - INFO - 200 OK - API query was successful
+2019-03-25 23:04:44,340 - general.connections - INFO - 200 OK - API query was successful
+2019-03-25 23:10:20,679 - general.connections - INFO - 200 OK - API query was successful
+2019-03-25 23:22:21,047 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/
+2019-03-25 23:22:21,048 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/
+2019-03-25 23:22:21,048 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/
+2019-03-25 23:22:21,193 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/la-semana-hace-50-anos
+2019-03-25 23:22:21,193 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/la-semana-hace-50-anos
+2019-03-25 23:22:21,193 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/la-semana-hace-50-anos
+2019-03-25 23:22:21,194 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/la-semana-hace-50-anos
+2019-03-25 23:22:21,194 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/la-semana-hace-50-anos
+2019-03-25 23:22:21,194 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/la-semana-hace-50-anos
+2019-03-25 23:22:21,194 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/la-semana-hace-50-anos
+2019-03-25 23:22:21,337 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/red-fantasma
+2019-03-25 23:22:21,337 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/red-fantasma
+2019-03-25 23:22:21,337 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/red-fantasma
+2019-03-25 23:22:21,337 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/red-fantasma
+2019-03-25 23:22:21,337 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/red-fantasma
+2019-03-25 23:22:21,339 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/red-fantasma
+2019-03-25 23:22:21,339 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/red-fantasma
+2019-03-25 23:22:21,339 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/red-fantasma
+2019-03-25 23:22:21,339 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/red-fantasma
+2019-03-25 23:22:21,339 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/red-fantasma
+2019-03-25 23:22:21,339 - crawler.crawler.crawler.spiders.extractor_spider - INFO - DATA NOT FOUND IN URL: https://www.yucatan.com.mx/etiqueta/red-fantasma
+2019-03-25 23:47:40,154 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:23:59,883 - general.connections - WARNING - 400 Client Error
+2019-03-26 00:24:36,752 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:27:04,545 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:29:03,355 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:31:14,070 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:32:07,016 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:33:27,301 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:36:41,809 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:38:15,256 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:39:14,032 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:44:24,416 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:45:29,234 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:48:47,316 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:49:52,640 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:50:36,970 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 00:52:06,246 - general.connections - INFO - 200 OK - API query was successful
+2019-03-26 01:36:02,962 - general.connections - INFO - 200 OK - API query was successful
