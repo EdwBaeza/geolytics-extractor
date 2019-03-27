@@ -110,7 +110,7 @@ class Connection(object):
 
         # Check if the url is empty
         if url == '':
-            raise ValueError("You need execute .filter method before .consult().")
+            raise ValueError("You need execute .set_filter() method before .consult().")
 
         # Try to make the query
         try:

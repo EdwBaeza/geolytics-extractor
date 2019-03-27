@@ -7421,3 +7421,7 @@
 2019-03-26 00:50:36,970 - general.connections - INFO - 200 OK - API query was successful
 2019-03-26 00:52:06,246 - general.connections - INFO - 200 OK - API query was successful
 2019-03-26 01:36:02,962 - general.connections - INFO - 200 OK - API query was successful
+2019-03-27 13:00:46,487 - general.connections - WARNING - 400 Client Error
+2019-03-27 13:03:06,227 - general.connections - WARNING - 400 Client Error
+2019-03-27 13:03:19,857 - general.connections - INFO - 200 OK - API query was successful
+2019-03-27 13:03:24,610 - general.connections - INFO - 200 OK - API query was successful
