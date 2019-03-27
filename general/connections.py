@@ -29,6 +29,15 @@ class Connector(object):
 #     and will be used to query and map out data from API's
 class ConnectorAPI(Connector):
 
+    # SUMMARY: Dictionary for params to consult API
+    params = {}
+
+    # SUMMARY: Hearders to consult API
+    headers = {}
+
+    # SUMMARY: Cookies to consult API
+    cookies = {}
+
     # SUMMARY: This is an dictionary and its function is to establish the 
     #     name of the properties from which it will extract the common 
     #     information for the model
@@ -67,7 +76,7 @@ class ConnectorAPI(Connector):
 
         try:
             # Consult API and get a object json
-            self.obj_json = Connection.api_connection(self.url)
+            self.obj_json = Connection.api_connection(self.url, self.params, self.headers, self.cookies)
 
             # The structure of the API is changed, according to the AbstractMapper
             #     class established in the creation of the instance of the class       
@@ -101,7 +110,7 @@ class Connection(object):
 
         # Check if the url is empty
         if url == '':
-            raise ValueError("You need execute .filter method before .consult().")
+            raise ValueError("You need execute .set_filter() method before .consult().")
 
         # Try to make the query
         try:

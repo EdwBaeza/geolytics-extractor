@@ -1,5 +1,5 @@
 import sys
-from apis.apis import GoogleAPI, YelpAPI, InegiAPI, GenericAPI, Crawler
+from apis.apis import GoogleAPI, InegiAPI, GenericAPI, Crawler, YelpAPI
 from general.log import logger
 
 # SUMMARY: Class to implement a factory pattern to 
@@ -17,14 +17,26 @@ class ConnectorFactory(object):
     # PARAM source: Value of resource to build 
     # RETURNS: Object instance that inherited from Connector class
     @staticmethod
-    def get_connector(source):
+    def get_connector(source, abstract_mapper = None):
         if ConnectorFactory.GOOGLE_API == source:
-            return GoogleAPI()
-        elif ConnectorFactory.YELP_API == source:
-            return YelpAPI()
+            if abstract_mapper != None:
+                return GoogleAPI(abstract_mapper)
+            else:
+                return GoogleAPI()
+        if ConnectorFactory.YELP_API == source:
+            if abstract_mapper != None:
+                return YelpAPI(abstract_mapper)
+            else:
+                return YelpAPI()
         elif ConnectorFactory.INEGI_API == source:
-            return InegiAPI()
+            if abstract_mapper != None:
+                return InegiAPI(abstract_mapper)
+            else:
+                return InegiAPI()
         elif ConnectorFactory.GENERIC_API == source:
-            return GenericAPI()
+            if abstract_mapper != None:
+                return GenericAPI(abstract_mapper)
+            else:
+                return GenericAPI()
         elif ConnectorFactory.CRAWLER == source:
             return Crawler()
