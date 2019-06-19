@@ -16,7 +16,7 @@ class CrawlerTest(TestCase):
         #Sólo se obtendrán datos de un mismo dominio, el cual se considerará origen.
         url = "https://www.yucatan.com.mx/"
         #Se Podra definir el tamaño del árbol mediante su profundidad y número de hijos máxima por nodo
-        size_spider = (3,2) # (Produndidad, NumeroMaximoDeHijosPorNodo)
+        size_spider = (3, 2) # (Produndidad, NumeroMaximoDeHijosPorNodo)
         attr_data = {"class": "entry-content", "itemprop": "articleBody"}
         attr_title = {"class": "g1-mega", "itemprop": "headline"}
         attr_date = {"class": "entry-date", "itemprop": "datePublished"}
@@ -31,7 +31,7 @@ class CrawlerTest(TestCase):
         #Para generar la instancia debe utilizar el patrón de diseño factory.
         self.crawler = ConnectorFactory.get_connector(ConnectorFactory.CRAWLER)
         #Método SetParams
-        self.crawler.set_params(url, size_spider, title=title, data=data, metadata=metadata)
+        self.crawler.set_params(url, size_spider, data=data, metadata=metadata)
     
     def test_consult(self):
         #Método Consultar
@@ -61,12 +61,14 @@ class CrawlerTest(TestCase):
         data = self.crawler.filter_data("Pymes")
         self.assertIsInstance(data, dict, "Debe una instancia de dict")
         for item in data.values():
-            self.assertIsInstance(item, GeoModel, "Debe Ser Una instancia de GeoModel")
+            self.assertIsInstance(item, GeoModel, "Debe ser Una instancia de GeoModel")
 
         
     def test_get_tree(self):
-        data = self.crawler.filter_data("Pymes")
-        self.assertIsInstance(data, dict, "Debe Contener El Campo data")
+        data = self.crawler.get_tree()
+        self.assertIsInstance(data, tuple, "Debe ser una instancia de list")
+        self.assertIsInstance(data[0], Tree, "Debe ser una instancia de Tree")
+        self.assertIsInstance(data[1], list, "Debe ser una instancia de Tree")
 
 test = CrawlerTest()
 test.set_up()

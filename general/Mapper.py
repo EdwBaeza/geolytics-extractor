@@ -70,7 +70,6 @@ class DefaultMapper(AbstractMapper):
             # __dict__ -> Convert the object to a dictionary
             # and it is added to the GeoModel object list
             objs_list.append(model.__dict__)
-
             copy_metadata.clear()
 
         # return a list of geomodel class in json format

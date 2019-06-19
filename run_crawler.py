@@ -1,4 +1,4 @@
-""" geolytics extractor"""
+""" this is example of use"""
 from extractor import ConnectorFactory
 
 def run():
@@ -81,26 +81,19 @@ def run3():
     data = {"tag":"div", "id": "content-body"}
     metadata = ({"name": "author", "tag": "span", "attr": attr_author})
 
-    crawler.set_params(url, size_spider,data=data, metadata=metadata)
+    crawler.set_params(url, size_spider,title=title,    data=data, metadata=metadata)
     data = crawler.consult()
-
     data_tree = crawler.map_out()
     node_list = crawler.filter_data("Pymes")
     tree = crawler.get_tree()
     print("COUNT DATA EXTRACTED", len(data), "/", len(tree[1]))
     print("COUNT NODE LIST EXTRACTED (Mapper)", len(node_list))
-    print(data_tree)
-    for item in data_tree.keys():
+
+    for item in data:
         print(item)
-        print(data_tree[item])
         inp = input("ENTER TO NEXT")
         if inp == 'q':
             break
-    
 
-    # data = tree[0].Get_data()
-    # print(data)
-    # children = tree[0].Get_Front_Position()
-    # print(children)
 
 run3()
