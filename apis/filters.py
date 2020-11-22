@@ -36,6 +36,7 @@ class MexicoStates(object):
     YUCATAN = '31'
     ZACATECAS = '32'
 
+
 # SUMMARY: It is a class that contains constants of the categories of places to 
 #     extract data from Inegi
 class Places(object):

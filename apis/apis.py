@@ -11,9 +11,7 @@ import copy
 class YelpAPI(ConnectorAPI):
 
     url = ''
-
     auth_type = 'bearer'
-
     api_key = '_QY8uFSymWbKPH7JiKGTHKmZtjGX2BnHcKlDGUpBIez-oZl7c6fxvxlRt_TqgpGHg993S5_2jy6tEzu43gjSggCFJrSAG49JLQvXuTlqu-A8r5FbPCadqEaqs5qZXHYx'
 
     MAP_COMMON_DATA = {
@@ -37,7 +35,7 @@ class YelpAPI(ConnectorAPI):
 
     def set_filter(self, term, latitude, longitude):
     
-        self.url = 'https://api.yelp.com/v3/businesses/search?term={0}&latitude={1}&longitude={2}'.format(term, latitude, longitude)
+        self.url = f'https://api.yelp.com/v3/businesses/search?term={term}&latitude={latitude}&longitude={longitude}'
 
     def set_auth(self):
         self.headers = {'Authorization' :'{0} {1}'.format(self.auth_type, self.api_key)}
@@ -117,7 +115,6 @@ class GenericAPI(ConnectorAPI):
 class Crawler(Connector):
     """ This is class use the user """
 
-
     def set_params(self, url, size_spider, **kwords): 
         """ Receive:
             string: url for first extraction "www.example.com/" 
@@ -129,7 +126,6 @@ class Crawler(Connector):
         self.size_spider = size_spider
         self.params = kwords
         self.crawler = Connection.crawler_connection(self.url, self.size_spider, **self.params)
-
 
     def consult(self):
         """ Receive:None
@@ -144,7 +140,6 @@ class Crawler(Connector):
             Return: list of the objects GeoModel"""  
         return DefaultMapper.mapout_crawler(copy.copy(self.__data_structure__[0]))
 
-    
     def get_tree(self):
         """ Receive:None
             Description: return the tree and list of the links

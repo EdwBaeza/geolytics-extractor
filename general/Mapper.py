@@ -26,7 +26,6 @@ class AbstractMapper(object):
 #     from AbstractMapper
 class DefaultMapper(AbstractMapper):
 
-    
     # SUMMARY: Method that restructures the json object consulted, and 
     #     returns it in the form of a list of the GeoModel type
     # PARAM obj_json: Object json consulted
